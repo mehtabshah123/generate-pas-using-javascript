@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator</title>
+    <link rel="stylesheet" href="password.css">
+</head>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f4f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    text-align: center;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#generateBtn {
+    background-color: #007bff;
+    color: white;
+}
+
+#generateBtn:hover {
+    background-color: #0056b3;
+}
+
+#copyBtn {
+    background-color: #28a745;
+    color: white;
+}
+
+#copyBtn:hover {
+    background-color: #218838;
+}
+
+</style>
+<body>
+    <div class="container">
+        <h1>Generate a Number Password</h1>
+        
+        <!-- Password field is read-only for display purposes -->
+        <input type="text" id="password" placeholder="Your Password" readonly>
+        
+        <div class="button-container">
+            <button id="generateBtn" onclick="createPassword()">Generate Password</button>
+            <button id="copyBtn" onclick="copyPassword()">Copy</button>
+        </div>
+    </div>
+
+    <script>
+        const passwordBox = document.getElementById('password'); // Corrected reference to the input element
+        const length = 10;
+
+        const upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const lowerCase = "abcdefghijklmnopqrstuvwxyz";
+        const number = "0123456789";
+        const symbol = "!#%&()*+,-./:;<=>?@[]^_{|}~";
+        const allChars = upperCase + lowerCase + number + symbol;
+
+        function createPassword() {
+            let password = "";
+            password += upperCase[Math.floor(Math.random() * upperCase.length)];
+            password += lowerCase[Math.floor(Math.random() * lowerCase.length)];
+            password += number[Math.floor(Math.random() * number.length)];
+            password += symbol[Math.floor(Math.random() * symbol.length)];
+
+            while (password.length < length) {
+                password += allChars[Math.floor(Math.random() * allChars.length)];
+            }
+
+            passwordBox.value = password;
+        }
+
+        function copyPassword() {
+            passwordBox.select();
+            document.execCommand('copy');
+            alert('Password copied to clipboard!');
+        }
+    </script>
+</body>
+</html>
